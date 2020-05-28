@@ -117,7 +117,6 @@
                         <i class="fa fa-remove"></i>취소하기
                     </button>
                 </div><!-- 버튼들 -->
-
             </form>
         </div><!-- 새글쓰기 폼 -->
     </div>

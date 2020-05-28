@@ -35,8 +35,7 @@
                     <label class="col-form-label col-2 text-right">
                         작성자</label>
                     <input type="text" id="userid" name="userid"
-                         class="form-control col-9" readonly
-                         value="abc123">
+                         class="form-control col-9">
                 </div><!-- 작성자 -->
 
                 <div class="form-group row">
