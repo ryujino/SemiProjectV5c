@@ -26,7 +26,7 @@ public class PdsService {
 //        // 첨부파일 정보를 임시로 저장
 //        pv.setFname("asf2134.zip");
 //        pv.setFsize("123");
-//        pv.setFdown("1231");
+        pv.setFdown("0");
 //        pv.setFtype("zip");
 
         if(pdao.insertPds(pv))
