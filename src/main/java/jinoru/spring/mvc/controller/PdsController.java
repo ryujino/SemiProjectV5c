@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -82,22 +84,8 @@ public class PdsController {
         FileUpDownUtil util = new FileUpDownUtil();
         Map<String, String > frmdata = util.procUpload(req);
 
-        // multipart 폼 데이터 처리
-        for(String key:frmdata.keySet()) {
-            String val = frmdata.get(key);
-            switch (key) {
-                case "title":pv.setTitle(val); break;
-                case "userid":pv.setUserid(val); break;
-                case "contents":pv.setContents(val); break;
-
-                case "file1":pv.setFname(val); break;
-                case "file1size":pv.setFsize(val); break;
-                case "file1type":pv.setFtype(val); break;
-            }
-        }
-
         // 서비스 객체로 넘김
-        psrv.newPds(pv);
+        psrv.newPds(pv, frmdata);
 
         return "redirect:/pds/list";
     }
@@ -119,5 +107,24 @@ public class PdsController {
     public String delete() {
 
         return "redirect:/pds/list";
+    }
+
+    // 첨부파일 다운로드 하기
+    // 컨트롤러 메소드에 ResponseBodyd 애노테이션을 사용하면
+    // view를 이용해서 데이터를 출력하지 않고
+    // HTTP 응답으로 직접 데이터를 전송하겠다는 의미
+    @ResponseBody
+    @RequestMapping(value = "/pds/pdown")
+    public void pdown(HttpServletRequest req, HttpServletResponse res) {
+
+        FileUpDownUtil util = new FileUpDownUtil();
+
+        try {
+            String pno = req.getParameter("pno");
+            psrv.modifyDown(pno);   // 첨부파일 다운수 처리
+            util.procDownload(req, res);
+        } catch ( Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

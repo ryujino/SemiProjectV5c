@@ -8,7 +8,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.servlet.ServletRequestContext;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -106,6 +107,56 @@ public class FileUpDownUtil
         return frmdata;
     }
 
-    // 다운로드 처리 메소드
 
+    // 다운로드 처리 메소드
+    public void procDownload(HttpServletRequest req, HttpServletResponse res) throws IOException {
+
+        req.setCharacterEncoding("utf-8");
+
+        String pno = req.getParameter("pno");
+        String fName = req.getParameter("f");
+        String dfName = "";
+
+        InputStream is = null;
+        OutputStream os = null;
+        File f = null;
+
+        try {
+            boolean skip = false;
+            try {
+                f = new File(uploadPath, fName);
+                is = new FileInputStream(f);
+            } catch (Exception ex) {
+                skip = true;
+            }
+
+            res.reset();
+            res.setContentType("application/octet-stream");
+            res.setHeader("Content-Description", "FileDownload");
+
+            if (!skip) {
+                fName = new String(fName.getBytes("utf-8"), "iso-8859-1");
+                res.setHeader("Content-Disposition", "attachment; filename=\"" + fName + "\"");
+                res.setHeader("Content-Type", "application/octet-stream; charset=utf-8");
+                res.setHeader("Content-Length", f.length() + "");
+
+                os = res.getOutputStream();
+                byte b[] = new byte[(int) f.length()];
+                int cnt = 0;
+
+                while ((cnt = is.read(b)) > 0) {
+                    os.write(b, 0, cnt);
+                }
+            } else {
+                res.setContentType("text/html; charset=utf-8");
+                PrintWriter out = res.getWriter();
+                out.print("<h1>다운로드할 파일이 없습니다.<h1>");
+            }
+        } catch ( Exception ex ) {
+            ex.printStackTrace();
+        } finally {
+            if(os!=null) os.close();
+            if(is!=null) is.close();
+        } // try
+    }
 }

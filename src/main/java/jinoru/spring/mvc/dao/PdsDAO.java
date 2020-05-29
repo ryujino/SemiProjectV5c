@@ -25,6 +25,8 @@ public class PdsDAO {
     @Value("#{jdbc['insertPdsSQL']}") private String insertPdsSQL;
     @Value("#{jdbc['selectPdsSQL']}") private String selectPdsSQL;
     @Value("#{jdbc['selectOnePdsSQL']}") private String selectOnePdsSQL;
+    @Value("#{jdbc['updateViewSQL']}") private String updateViewSQL;
+    @Value("#{jdbc['updateDownSQL']}") private String updateDownSQL;
 
     // 게시판 데이터를 Pds테이블에 저장
     public boolean insertPds( PdsVO p ) {
@@ -79,6 +81,21 @@ public class PdsDAO {
         PdsVO pvo = jdbcTemplate.queryForObject(selectOnePdsSQL, mapper, params); // 하나만 가져오고 싶을때
 
         return pvo;
+    }
+
+    // 글 번호로 본문 글에 대한 조회수 증가
+    public void updateViewPds(String pno) {
+
+        Object[] params = new Object[] { pno };
+
+        jdbcTemplate.update(updateViewSQL, params);
+    }
+
+    // 글 번호로 첨부파일에 대한 다운수 증가
+    public void updateDownPds(String pno) {
+        Object[] params = new Object[] { pno };
+
+        jdbcTemplate.update(updateDownSQL, params);
     }
 
     // selectBoard의 RowMapper 내부 클래스
