@@ -23,11 +23,11 @@ public class PdsService {
     public String newPds(PdsVO pv) {
         String result = "데이터입력 실패";
 
-        // 첨부파일 정보를 임시로 저장
-        pv.setFname("asf2134.zip");
-        pv.setFsize("123");
-        pv.setFdown("1231");
-        pv.setFtype("zip");
+//        // 첨부파일 정보를 임시로 저장
+//        pv.setFname("asf2134.zip");
+//        pv.setFsize("123");
+//        pv.setFdown("1231");
+//        pv.setFtype("zip");
 
         if(pdao.insertPds(pv))
             result = "데이터 입력 성공";
