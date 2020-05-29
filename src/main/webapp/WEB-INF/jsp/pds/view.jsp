@@ -1,4 +1,11 @@
 <%@ page  pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%-- 줄바꿈 문자를 newChar 변수에 저장 --%>
+<c:set var="newChar" value="
+" scope="page"/>
+<%-- 엔터친게 저장 ㅋㅋ --%>
 
     <!-- 메인영역 시작 -->
     <div id="main">
@@ -44,7 +51,8 @@
                 <tr style="background: #ffffcc">
                     <td colspan="2" class="text-left"
                         style="border-bottom: 3px solid black;">
-                        ${p.contents}
+                        ${fn:replace(p.contents, newChar, "<br>")}
+                        <%-- 엔터를 br태그로 바꿈 --%>
                     </td></tr>
                 <tr><td class="text-left">첨부1</td><td><a href="/pds/pdown.do?f=${p.fname}&pno=${p.pno}">${p.fname}</a>(${p.fsize}KB, ${p.fdown}회 다운로드함)</td></tr>
                 <tr><td class="text-left">첨부2</td><td>${p.fname}.${p.ftype} (${p.fsize}KB, ${p.fdown}회 다운로드함)</td></tr>
