@@ -31,6 +31,23 @@
     // startPage = ((cp-1)/10)*10+1
     // endPage = startPage+10-1
 %>
+
+<%
+    // 게시판 글번호 처리
+    // 특정 게시글을 삭제했을 경우
+    // 글번호가 중간중간 비어 있는 것을 볼수 있다.
+    // 이러한 상황을 방지하기 위해
+    // 글번호를 전체 게시물 수를 기준으로 페이지 별로 출력해야한다.
+    // 전체 게시물 수: 526
+    // cp=1: spno = 526, epno = 517
+    // cp=2: spno = 516, epno = 507
+    // cp=3: spno = 506, epno = 497
+    // cp=x: spno =y
+    //
+    // fx(x)= bdcnt - (cp - 1 ) * perPage
+%>
+
+
     <%--<c:set var="cp" value="${param.cp}"/> 문자로 나와서 안됨--%>
     <fmt:parseNumber var="cp" value="${param.cp}"/>
     <fmt:parseNumber var="perPage" value="10"/>
@@ -46,6 +63,8 @@
     <fmt:parseNumber var="startPage" value="${startPage * 10 + 1}"/>
     <c:set var="endPage" value="${startPage + 10 - 1 }"/>
 
+    <%-- 이 안빠지게 글번호 계산하기 --%>
+    <c:set var="sbno" value="${ bdcnt-(cp-1)*perPage }" />
 
     <!-- 메인영역 시작 -->
     <div id="main">
@@ -89,13 +108,14 @@
                             <th>128</th></tr>
 
                         <c:forEach var="b" items="${bdlist}">
-                            <tr><td>${b.bno}</td>
+                            <tr><td>${sbno}</td>
                             <td><a href="board/view.do?bno=${b.bno}">
                                                 ${b.title}</a></td>
                             <td>${b.userid}</td>
                             <td>${ fn:substring(b.regdate,0,10) }</td>
                             <td>${b.thumbup}</td>
                             <td>${b.views}</td></tr>
+                            <c:set var="sbno" value="${sbno-1}"/>
                         </c:forEach>
 
                     </tbody>

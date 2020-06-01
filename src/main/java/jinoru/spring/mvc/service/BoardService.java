@@ -45,4 +45,8 @@ public class BoardService {
 
         return bdao.selectCountBoard();
     }
+
+    public void removeBoard(String bno) {
+        bdao.deleteBoard(bno);
+    }
 }

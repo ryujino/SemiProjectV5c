@@ -26,6 +26,7 @@ public class BoardDAO {
     @Value("#{jdbc['selectBoardSQL']}") private String selectBoardSQL;
     @Value("#{jdbc['selectOneBoardSQL']}") private String selectOneBoardSQL;
     @Value("#{jdbc['countBoardSQL']}") private String countBoardSQL;
+    @Value("#{jdbc['deleteBoardSQL']}") private String deleteBoardSQL;
 
     // 게시판 데이터를 board테이블에 저장
     public boolean insertBoard( BoardVO b ) {
@@ -93,6 +94,14 @@ public class BoardDAO {
         int bdcnt = jdbcTemplate.queryForObject(
                countBoardSQL, Integer.class);
         return bdcnt;
+    }
+
+    public void deleteBoard(String bno) {
+
+        Object[] params = new Object[] {bno};
+
+        jdbcTemplate.update(deleteBoardSQL, params);
+
     }
 
     // selectBoard의 RowMapper 내부 클래스
