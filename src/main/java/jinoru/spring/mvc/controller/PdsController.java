@@ -82,7 +82,7 @@ public class PdsController {
 
         // 업로드 처리
         FileUpDownUtil util = new FileUpDownUtil();
-        Map<String, String > frmdata = util.procUpload(req);
+        Map<String, String> frmdata = util.procUpload(req);
 
         // 서비스 객체로 넘김
         psrv.newPds(pv, frmdata);
