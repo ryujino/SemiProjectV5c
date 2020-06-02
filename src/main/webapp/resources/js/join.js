@@ -73,13 +73,13 @@ $('#joinokbtn').on('click', function () {
         alert('비밀번호를 확인하세요!!');
         $('#pwd').focus();
 
-    //}else if( $('#zip1').val() == '' || $('#zip2').val() == '') {
-    //    alert('우편번호를 입력하세요!!');
-    //    $('#zip1').focus();
+    }else if( $('#zip1').val() == '' || $('#zip2').val() == '') {
+       alert('우편번호를 입력하세요!!');
+       $('#zip1').focus();
 
-    //}else if( $('#addr1').val() == '' || $('#addr2').val() == '') {
-    //    alert('나머지 주소를 입력하세요!!');
-    //    $('#addr2').focus();
+    }else if( $('#addr1').val() == '' || $('#addr2').val() == '') {
+       alert('나머지 주소를 입력하세요!!');
+       $('#addr2').focus();
 
     }else if( $('#email1').val() == '' || $('#email2').val() == '' ) {
         alert('이메일을 입력하세요!!');
@@ -172,4 +172,28 @@ function sendzipcode() {
 
 $("#sendzipbtn").on('click', function () {
     sendzipcode();
-})
+});
+
+
+// checkuid
+// 아이디 중복체크
+function checkuid() {
+    $.ajax({
+        url: 'join/checkuid', type: 'GET', data: { userid: $('#uid').val() }
+    })  // 비동기 요청
+    .done(function (data) {
+        var msg = '사용 불가능한 아이디 입니다.!!';
+        if (data.trim()=='0') {
+            msg= "사용 가능한 아이디입니다.";
+        }
+        $('#uidmsg').text(msg);
+    })  // 처리 완료
+    .fail(function (xhr, status, error) {
+
+    }); // 처리 실패
+
+}
+
+$('#uid').on('blur', function () {
+    checkuid();
+});

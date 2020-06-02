@@ -85,4 +85,8 @@ public class MemberService {
         }
         return json;
     }
+
+    public int checkUserid(String uid) {
+        return mdao.selectUserid(uid);
+    }
 }

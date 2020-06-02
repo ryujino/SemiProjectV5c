@@ -115,4 +115,15 @@ public class JoinController {
             ex.printStackTrace();
         }
     }
+
+    // 아이디 중복 체크
+    // join/checkuid?uid=검사할아이디
+    @RequestMapping(value = "join/checkuid")
+    public void checkuid(String uid, HttpServletResponse res) {
+        try {
+            res.getWriter().print(msrv.checkUserid(uid));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

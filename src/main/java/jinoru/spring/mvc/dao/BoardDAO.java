@@ -76,6 +76,7 @@ public class BoardDAO {
 
         // jdbcTemplate의 query메소드는 select문의 결과를 RowMapper클래스의 mapRow로 넘겨서 처리하며
         // list를 return한다.
+        // queryForObject는 int 리턴
     }
 
     // 글번호로 선택한 게시물에 대해 모든 컬럼을 조회해서
