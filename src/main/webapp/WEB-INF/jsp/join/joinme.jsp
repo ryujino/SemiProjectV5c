@@ -115,13 +115,18 @@
                            class="form-control col-1 border-info"
                            name="zip2" id="zip2" maxlength="3" readonly>
                     <span class="col-7">
-                        <button class="btn btn-dark" type="button"
-                            data-toggle="modal" data-target="#zipcode">
+                        <button class="btn btn-dark" type="button" id="showzipbtn">
+                             <%--data-toggle="modal" data-target="#zipcode"--%>
                             <i class="fa fa-question-circle"></i>
                             우편번호 찾기
                         </button>
                     </span>
                 </div><!-- 우편번호 -->
+
+                <%--
+                    우편 번호 검색
+                    /join/zipcode?dong=????
+                --%>
 
                 <div class="form-group row">
                     <label class="col-2 col-form-label"
@@ -243,7 +248,7 @@
                         </div>
                         <div class="col-3">
                             <button type="button"
-                                    class="btn btn-primary">
+                                    class="btn btn-primary" id="findzipbtn">
                                 <i class="fa fa-search"></i>
                                 검색하기
                             </button>
@@ -275,13 +280,14 @@
                                 <option>123-456 서울 종로구 창신동</option>
                                 <option>123-456 서울 종로구 창신동</option>
                             </select>
+                            </select>
                         </div>
                         <div class="col-1"></div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="zipbtn"
+                <button type="button" id="sendzipbtn"
                    class="btn btn-danger">선택하고 닫기</button>
             </div>
         </div>

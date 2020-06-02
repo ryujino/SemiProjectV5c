@@ -89,8 +89,8 @@ public class BoardController {
     }
 
     // 삭제하기
-    @RequestMapping(value = "/board/delete")
-    public String delete(String bno) {
+        @RequestMapping(value = "/board/delete")
+        public String delete(String bno) {
 
         bsrv.removeBoard(bno);
 

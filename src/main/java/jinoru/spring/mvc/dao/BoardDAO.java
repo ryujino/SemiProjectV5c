@@ -45,6 +45,10 @@ public class BoardDAO {
         if (jdbcTemplate.update(insertBoardSQL, params) > 0)
             isInsert = true;
 
+        // INSERT, UPDATE, DELETE 쿼리를 실행할 때는, update()메소드를 사용하면 된다.
+        // int update(String sql, Object... args)
+        // int형태로 리턴 => 쿼리 실행 결과로 변경된 행의 개수를 리턴
+
         return isInsert;
     }
 
@@ -69,6 +73,9 @@ public class BoardDAO {
         // RowMapper 인터페이스를 구현해서 생성해야한다.
 
         return jdbcTemplate.query(selectBoardSQL, mapper, params);
+
+        // jdbcTemplate의 query메소드는 select문의 결과를 RowMapper클래스의 mapRow로 넘겨서 처리하며
+        // list를 return한다.
     }
 
     // 글번호로 선택한 게시물에 대해 모든 컬럼을 조회해서

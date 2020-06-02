@@ -1,12 +1,17 @@
 package jinoru.spring.mvc.dao;
 
+import jinoru.spring.mvc.vo.ZipcodeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import jinoru.spring.mvc.vo.MemberVO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository("mdao")
 public class MemberDAO {
@@ -19,6 +24,7 @@ public class MemberDAO {
     @Value("#{jdbc['insertJoinSQL']}") private String insertJoinSQL;
     @Value("#{jdbc['selectJoinSQL']}") private String selectJoinSQL;
     @Value("#{jdbc['selectOneJoinSQL']}") private String selectOneJoinSQL;
+    @Value("#{jdbc['zipcodeSQL']}") private String zipcodeSQL;
 
     @Autowired
     public MemberDAO(JdbcTemplate jdbcTemplate) {
@@ -67,4 +73,27 @@ public class MemberDAO {
        return null;
     }
 
+    public List<ZipcodeVO> selectZicode(String dong) {
+        Object[] params = new Object[] { dong + "%" };
+
+        RowMapper<ZipcodeVO> mapper = new ZipcodeRowMapper();
+
+        return jdbcTemplate.query(zipcodeSQL, params, mapper);
+    }
+
+    private class ZipcodeRowMapper implements RowMapper<ZipcodeVO> {
+
+        @Override
+        public ZipcodeVO mapRow(ResultSet rs, int num) throws SQLException {
+            ZipcodeVO zvo = new ZipcodeVO(
+                    rs.getString("zipcode"),
+                    rs.getString("sido"),
+                    rs.getString("gugun"),
+                    rs.getString("dong"),
+                    rs.getString("ri"),
+                    rs.getString("bunji")
+            );
+            return zvo;
+        }
+    }
 }

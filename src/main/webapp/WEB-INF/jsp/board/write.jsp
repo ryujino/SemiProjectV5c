@@ -24,16 +24,16 @@
         <div class="row mgnpdg15">
             <form class="card card-body bg-light"
                   name="bdfrm" id="bdfrm" method="post">
-                <div class="form-group row">
-                    <label class="col-form-label col-2 text-right">
-                        제목</label>
-                    <input type="text" id="title" name="title"
-                           class="form-control col-9">
-                </div><!-- 제목 -->
+                    <div class="form-group row">
+                        <label class="col-form-label col-2 text-right">
+                            제목</label>
+                        <input type="text" id="title" name="title"
+                               class="form-control col-9">
+                    </div><!-- 제목 -->
 
-                <div class="form-group row">
-                    <label class="col-form-label col-2 text-right">
-                        작성자</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-2 text-right">
+                            작성자</label>
                     <input type="text" id="userid" name="userid"
                          class="form-control col-9">
                 </div><!-- 작성자 -->
