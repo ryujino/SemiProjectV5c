@@ -128,7 +128,7 @@ function findzipcode() {
         var opts = "";
         $.each(data, function() {   // 행단위 반복 처리
             var zip = "";
-            $.each(this, function (k, v) {
+            $.each(this, function (k, v) {  // 키별로 값을 반복 처리
                 if (v != null) zip += v + " ";
             });
             opts += "<option>" + zip + "</option>";
