@@ -77,6 +77,7 @@
 <script src="/resources/js/board.js"></script>
 <script src="/resources/js/join.js"></script>
 <script src="/resources/js/pds.js"></script>
+<script src="/resources/js/gallery.js"></script>
 
 <script>
     // 회원가입버튼
