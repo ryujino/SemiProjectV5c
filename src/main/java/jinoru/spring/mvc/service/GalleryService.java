@@ -53,4 +53,16 @@ public class GalleryService {
         // 썸내일 이미지 생성
         imgutil.imgeCropResize(gvo.getFname1(), id);
     }
+
+    // 갤러리 목록 표시
+    public ArrayList<GalleryVO> showGallery() {
+
+        return (ArrayList<GalleryVO>)gdao.selectGallery();
+    }
+
+    // 갤러리 본문 출력
+    public GalleryVO showOneGallery(String gno) {
+
+        return gdao.selectOneGallery(gno);
+    }
 }

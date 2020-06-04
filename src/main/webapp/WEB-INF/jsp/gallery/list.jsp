@@ -1,4 +1,9 @@
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <%-- 형변환과 관련된 태그 --%>
+
+<c:set var="thumbURL" value="http://127.0.0.1/cdn/_thumb/small_" />
 
     <!-- 메인영역 시작 -->
     <div id="main">
@@ -20,32 +25,15 @@
         <div class="row margin1050">
             <div class="col-12">
                 <ul class="list-inline">
+
+                    <c:forEach var="g" items="${glist}">
                     <li class="list-inline-item">
-                        <a href="/gallery/view?gno=1">
-                            <img src="/resources/img/cat01.png" class="img-thumbnail"></a></li>
-                    <li class="list-inline-item">
-                        <a href="/gallery/view?gno=1">
-                            <img src="/resources/img/cat02.png" class="img-thumbnail"></a></li>
-                    <li class="list-inline-item">
-                        <a href="/gallery/view?gno=1">
-                            <img src="/resources/img/cat01.png" class="img-thumbnail"></a></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat01.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat01.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat01.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat01.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat01.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat01.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat01.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat01.png" class="img-thumbnail"></li>
-                    <li class="list-inline-item"><img src="/resources/img/cat02.png" class="img-thumbnail"></li>
+                        <a href="/gallery/view?gno=${g.gno}">
+                            <img src="${thumbURL}${g.gno}.${fn:split(g.fname1, '.')[1]}"
+                                 class="img-thumbnail" width="235" title="${g.title} / ${g.userid} / ${fn:substring(g.regdate,0,10 )} / ${g.views}">
+                        </a>
+                    </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div><!-- 갤러리 목록 -->
