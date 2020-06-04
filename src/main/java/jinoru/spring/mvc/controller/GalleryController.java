@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -42,10 +43,15 @@ public class GalleryController {
     }
 
 
+    // 새글쓰기
+    // 여러 개의 이미지를 업로드 하는 경우
+    // 이미지 폼 이름은 모두 동일하게 설정한다.
+    // 이미지를 여러개 설정할필요 없이 배열로 설정
+    // MultipartFile img1, MultipartFile img2, MultipartFile img3
+    // 이렇게 여러개쓰는것보다 배열로 (MultipartFile[] img) 하는것이 좋다.
     @PostMapping(value = "gallery/write")
-    public String writeok(GalleryVO gvo) {
-
-        gsrv.newGallery(gvo);
+    public String writeok(GalleryVO gvo, MultipartFile[] img) {
+        gsrv.newGallery(gvo ,img);
 
         return "redirect:/gallery/list";
     }
