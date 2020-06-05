@@ -1,6 +1,7 @@
 package jinoru.spring.mvc.controller;
 
 import jinoru.spring.mvc.service.BDReplyService;
+import jinoru.spring.mvc.service.GoogleCaptchaUtil;
 import jinoru.spring.mvc.vo.ReplyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import jinoru.spring.mvc.service.BoardService;
 import jinoru.spring.mvc.vo.BoardVO;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +21,15 @@ public class BoardController {
 
     private BoardService bsrv;
     private BDReplyService brsrv;
+    private GoogleCaptchaUtil gcutil;
 
     @Autowired
-    // 두개의 멤버변수를 생성자를 통해 DI받음
-    public BoardController(BoardService bsrv, BDReplyService brsrv) {
+    // 세개의 멤버변수를 생성자를 통해 DI받음
+    public BoardController(BoardService bsrv, BDReplyService brsrv, GoogleCaptchaUtil gcutil) {
 
         this.bsrv = bsrv;
         this.brsrv = brsrv;
+        this.gcutil = gcutil;
     }
 
     // 목록보기
@@ -61,11 +66,17 @@ public class BoardController {
 
     // 새글쓰기
     @RequestMapping(value = "/board/write", method = RequestMethod.POST)
-    public String writeok(BoardVO bd) {
+    public String writeok(BoardVO bd, HttpServletRequest req, RedirectAttributes rda) {
+        String returnPage = "redirect:/board/write";
+        String gCaptcha = req.getParameter("g-recaptcha");
 
-        bsrv.newBoard(bd);
-
-        return "redirect:/board/list";
+        if (gcutil.checkCaptcha(gCaptcha)) {
+            bsrv.newBoard(bd);
+            returnPage = "redirect:/board/list?cp=1";
+        } else {
+            rda.addFlashAttribute("checkFail","자동가입방지 확인이 실패했습니다.");
+        }
+        return returnPage;
     }
 
     // 본문보기

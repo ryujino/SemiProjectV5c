@@ -11,7 +11,11 @@ $('#bdregbtn').on('click', function () {
         alert('본문을 입력하세요!!');
         $('#contents').focus();
 
-    } else {
+    } else if (grecaptcha.getResponse() == "") {
+        alert("자동 가입 방지 확인 필요!!");
+    }
+    else {
+        $('#g-recaptcha').val( grecaptcha.getResponse());
         $('#bdfrm').submit();
     }
 }); // 새글등록

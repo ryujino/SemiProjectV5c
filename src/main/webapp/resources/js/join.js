@@ -90,8 +90,11 @@ $('#joinokbtn').on('click', function () {
         alert('전화번호를 입력하세요!!');
         $('#hp1').focus();
 
+    } else if ( grecaptcha.getResponse() == "") {
+        alert("자동가입방지 확인 필요!!");
     } else {
-		$('#joinfrm').submit();
+        $('#g-recaptcha').val( grecaptcha.getResponse());
+        $('#joinfrm').submit();
 	}
 }); // 회원가입완료
 
