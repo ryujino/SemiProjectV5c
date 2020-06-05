@@ -76,7 +76,7 @@
         </div> <!-- 타이틀 -->
 
         <div class="row margin1050">
-            <c:if test="${empty UID}">
+            <c:if test="${not empty UID}">
                 <div class="col-12 text-right">
                     <button type="button" id="newbd"
                             class="btn btn-light">
@@ -84,8 +84,6 @@
                         새글쓰기
                     </button>
                 </div>
-            </c:if>
-            <c:if test="${not empty UID}">
             </c:if>
         </div><!-- 버튼들 -->
 

@@ -135,9 +135,7 @@ public class PdsDAO {
                     rs.getString("fsize"),
                     rs.getString("fdown"),
                     rs.getString("ftype")
-
             );
-
             return pvo;
         }
     }
